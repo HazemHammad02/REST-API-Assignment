@@ -21,9 +21,11 @@ namespace ITWORXAcademy.Products.Assignment.Controllers
         }
         // GET: api/<CategoriesController>
         [HttpGet]
-        public IEnumerable<Category> Get()
+        public Response<Category> Get()
         {
-            return _CategoryRepository.GetAll() ;
+            Response<Category> response = new Response<Category>();
+            response.Results = _CategoryRepository.GetAll()?.ToList();
+            return response; 
         }
     }
 }

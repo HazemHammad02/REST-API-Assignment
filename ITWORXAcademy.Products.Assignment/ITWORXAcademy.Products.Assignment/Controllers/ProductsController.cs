@@ -26,16 +26,22 @@ namespace ITWORXAcademy.Products.Assignment.Controllers
             return productResponse;
         }
         [HttpGet("GetByCategory")]
-        public IEnumerable<Product> GetByCalegoryId([FromQuery]Guid categoryID)
+        public Response<Product> GetByCalegoryId([FromQuery]Guid categoryID)
         {
-            return _ProductRepository.GetFilterByField(i=>i.CategoryID.ToString()== categoryID.ToString());
+            Response<Product> productResponse = new Response<Product>();
+            productResponse.Results= _ProductRepository.GetFilterByField(i=>i.CategoryID.ToString()== categoryID.ToString())?.ToList();
+            return productResponse;
         }
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public Product Get(Guid id)
+        public Response<Product> Get(Guid id)
         {
-            return _ProductRepository.Get(id) ;
+            Response<Product> productResponse = new Response<Product>();
+            var product = _ProductRepository.Get(id);
+            if (product != null)
+                productResponse.Results.Add(product);
+            return productResponse ;
         }
 
         // POST api/<ProductsController>

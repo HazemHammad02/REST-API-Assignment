@@ -11,6 +11,7 @@ namespace ITWORXAcademy.Products.Assignment.Entities
         {
             Success = true;
             Messages = new List<string>();
+            Results = new List<T>();
         }
         public bool Success { get; set; }
         public List<T> Results { get; set; }
